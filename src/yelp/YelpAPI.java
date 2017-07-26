@@ -14,10 +14,10 @@ public class YelpAPI {
 	private static final String DEFAULT_TERM = "dinner";
 	private static final int SEARCH_LIMIT = 20;
 	private static final String SEARCH_PATH = "/v2/search";
-	private static final String CONSUMER_KEY = "YOUR_CONSUMER_KEY";
-	private static final String CONSUMER_SECRET = "YOUR_CONSUMER_SECRET";
-	private static final String TOKEN = "YOUR_TOKEN";
-	private static final String TOKEN_SECRET = "YOUR_TOKEN_SECRET";
+	private static final String CONSUMER_KEY = "W48qgsdl1qtNTmwlRhpo8Q";
+	private static final String CONSUMER_SECRET = "kujne_5wnpbtueq3haXmhoUJDSA";
+	private static final String TOKEN = "TD8fhcPb3_j2-7VZ4zWqye4L49F4I9pC";
+	private static final String TOKEN_SECRET = "889q7MrRnzfpIJbUElPQXMPArzE";
 
 	OAuthService service;
 	Token accessToken;
@@ -73,7 +73,7 @@ public class YelpAPI {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * Main entry for sample Yelp API requests.
 	 */
