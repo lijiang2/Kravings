@@ -1,7 +1,11 @@
 package Restaurant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Restaurant {
 	private String businessId;
@@ -15,6 +19,98 @@ public class Restaurant {
 	private double longitude;
 	private String imageUrl;
 	private String url;
+	
+	/**
+	 * Creates a restaurant instance from JSON object
+	 * 
+	 * @param object JSON object
+	 */
+	public Restaurant(JSONObject object) {
+	   	 try {
+	   		 if (object != null) {
+	   			 this.businessId = object.getString("id");
+	   			 JSONArray jsonArray = (JSONArray) object.get("categories");
+	   			 List<String> list = new ArrayList<>();
+	   			 for (int i = 0; i < jsonArray.length(); i++) {
+	   				 JSONArray subArray = jsonArray.getJSONArray(i);
+	   				 for (int j = 0; j < subArray.length(); j++) {
+	   					 list.add(parseString(subArray.getString(j)));
+	   				 }
+	   			 }
+	   			 this.categories = String.join(",", list);
+	   			 this.name = object.getString("name");
+	   			 this.imageUrl = object.getString("image_url");
+	   			 this.stars = object.getDouble("rating");
+	   			 JSONObject location = (JSONObject) object.get("location");
+	   			 JSONObject coordinate = (JSONObject) location.get("coordinate");
+	   			 this.latitude = coordinate.getDouble("latitude");
+	   			 this.longitude = coordinate.getDouble("longitude");
+	   			 this.city = location.getString("city");
+	   			 this.state = location.getString("state_code");
+	   			 this.fullAddress = jsonArrayToString((JSONArray) location
+	   					 .get("display_address"));
+	   			 this.url = object.getString("url");
+	   		 }
+	   	 } catch (Exception e) {
+	   		 e.printStackTrace();
+	   	 }
+	    }
+	
+		/**
+		 * Creates a restaurant instance from strings
+		 * 
+		 * @param businessId
+		 * @param name 
+		 * @param categories
+		 * @param city
+		 * @param state
+		 * @param stars
+		 * @param fullAddress
+		 * @param latitude
+		 * @param longitude
+		 * @param imageUrl
+		 * @param url
+		 */
+	    public Restaurant(String businessId, String name, String categories,
+	   		 String city, String state, double stars, String fullAddress,
+	   		 double latitude, double longitude, String imageUrl, String url) {
+	   	 this.businessId = businessId;
+	   	 this.categories = categories;
+	   	 this.name = name;
+	   	 this.city = city;
+	   	 this.state = state;
+	   	 this.stars = stars;
+	   	 this.fullAddress = fullAddress;
+	   	 this.latitude = latitude;
+	   	 this.longitude = longitude;
+	   	 this.imageUrl = imageUrl;
+	   	 this.url = url;
+	    }
+	    
+	    /**
+	     * Converts Restaurant object to JSONObject
+	     * 
+	     * @return the JSON object created
+	     */
+	    public JSONObject toJSONObject() {
+	   	 JSONObject obj = new JSONObject();
+	   	 try {
+	   		 obj.put("business_id", businessId);
+	   		 obj.put("name", name);
+	   		 obj.put("stars", stars);
+	   		 obj.put("latitude", latitude);
+	   		 obj.put("longitude", longitude);
+	   		 obj.put("full_address", fullAddress);
+	   		 obj.put("city", city);
+	   		 obj.put("state", state);
+	   		 obj.put("categories", stringToJSONArray(categories));
+	   		 obj.put("image_url", imageUrl);
+	   		 obj.put("url", url);
+	   	 } catch (JSONException e) {
+	   		 e.printStackTrace();
+	   	 }
+	   	 return obj;
+	    }
 	
 	// Performs data cleanup from Yelp API
 	public static String parseString(String str) {
