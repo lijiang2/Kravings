@@ -7,12 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+
+import db.DBConnection;
+import db.MySQLDBConnection;
+
 /**
  * Servlet implementation class RecommendRestaurants
  */
 @WebServlet("/recommendation")
 public class RecommendRestaurants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static DBConnection connection = new MySQLDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -25,10 +31,18 @@ public class RecommendRestaurants extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
+		JSONArray array = null;	
+		if (request.getParameterMap().containsKey("user_id")) {
+			String userId = request.getParameter("user_id");
+			array = connection.recommendRestaurants(userId);
+		}
+		RpcParser.writeOutput(response, array);
+    }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
