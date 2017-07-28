@@ -160,8 +160,24 @@ public class MySQLDBConnection implements DBConnection {
 
 	@Override
 	public Set<String> getCategories(String businessId) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			String sql = "SELECT categories from restaurants WHERE business_id = ? ";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, businessId);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				Set<String> set = new HashSet<>();
+				String[] categories = rs.getString("categories").split(",");
+				for (String category : categories) {
+					// ' Japanese ' -> 'Japanese'
+					set.add(category.trim());
+				}
+				return set;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return new HashSet<String>();
 	}
 
 	@Override
