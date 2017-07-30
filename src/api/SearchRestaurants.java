@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import db.DBConnection;
+import db.MongoDBConnection;
 import db.MySQLDBConnection;
 
 /**
@@ -22,6 +23,8 @@ import db.MySQLDBConnection;
 @WebServlet("/restaurants")
 public class SearchRestaurants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+//	private static final DBConnection connection = new MySQLDBConnection();
+	private static final DBConnection connection = new MongoDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +40,6 @@ public class SearchRestaurants extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		JSONArray array = new JSONArray();
-		DBConnection connection = new MySQLDBConnection();
 		if (request.getParameterMap().containsKey("lat")
 				&& request.getParameterMap().containsKey("lon")) {
 			// term is null or empty by default

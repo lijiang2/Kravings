@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import db.DBConnection;
+import db.MongoDBConnection;
 import db.MySQLDBConnection;
 
 /**
@@ -18,7 +19,8 @@ import db.MySQLDBConnection;
 @WebServlet("/recommendation")
 public class RecommendRestaurants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static DBConnection connection = new MySQLDBConnection();
+//	private static DBConnection connection = new MySQLDBConnection();
+	DBConnection connection = new MongoDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
