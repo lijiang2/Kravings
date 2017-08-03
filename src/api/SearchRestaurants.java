@@ -2,6 +2,8 @@ package api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +39,8 @@ public class SearchRestaurants extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    private static final Logger LOGGER = Logger.getLogger(SearchRestaurants.class.getName());
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		JSONArray array = new JSONArray();
@@ -47,6 +51,7 @@ public class SearchRestaurants extends HttpServlet {
             String userId = "1111";
 			double lat = Double.parseDouble(request.getParameter("lat"));
 			double lon = Double.parseDouble(request.getParameter("lon"));
+			LOGGER.log(Level.INFO, "lat:" + lat + ",lon:" + lon);
 			array = connection.searchRestaurants(userId, lat, lon, term);
 		}
 		RpcParser.writeOutput(response, array);
