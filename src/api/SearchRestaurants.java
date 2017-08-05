@@ -25,8 +25,8 @@ import db.MySQLDBConnection;
 @WebServlet("/restaurants")
 public class SearchRestaurants extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private static final DBConnection connection = new MySQLDBConnection();
-	private static final DBConnection connection = new MongoDBConnection();
+	private static final DBConnection connection = new MySQLDBConnection();
+//	private static final DBConnection connection = new MongoDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
