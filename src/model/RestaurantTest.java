@@ -17,4 +17,17 @@ public class RestaurantTest {
 		assertEquals("Chinese,Japanese,Italian", 
 			Restaurant.jsonArrayToString(jsonArray));
 	}
+	
+	@Test
+	public void testJsonArrayToStringCornerCases() {
+		JSONArray jsonArray = new JSONArray();
+		assertEquals("", Restaurant.jsonArrayToString(jsonArray));
+		jsonArray.put("Chinese");
+		assertEquals("Chinese", Restaurant.jsonArrayToString(jsonArray));
+		jsonArray.put("Japanese");
+		jsonArray.put("");
+		String str = Restaurant.jsonArrayToString(jsonArray);
+		assertEquals("Chinese,Japanese,", str);
+	}
+
 }
