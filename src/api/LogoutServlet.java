@@ -6,26 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.JSONArray;
-
-import db.DBConnection;
-import db.MongoDBConnection;
-import db.MySQLDBConnection;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RecommendRestaurants
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/recommendation")
-public class RecommendRestaurants extends HttpServlet {
+@WebServlet("/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static DBConnection connection = new MySQLDBConnection();
-//	DBConnection connection = new MongoDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecommendRestaurants() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +26,14 @@ public class RecommendRestaurants extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
-		JSONArray array = null;	
-		if (request.getParameterMap().containsKey("user_id")) {
-			String userId = request.getParameter("user_id");
-			array = connection.recommendRestaurants(userId);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// invalidate the session if exists
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
 		}
-		RpcParser.writeOutput(response, array);
-    }
-
+		response.sendRedirect("index.html");
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

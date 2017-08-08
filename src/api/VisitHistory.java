@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import db.DBConnection;
+import db.MongoDBConnection;
 import db.MySQLDBConnection;
 
 /**
@@ -24,6 +25,8 @@ import db.MySQLDBConnection;
 @WebServlet("/history")
 public class VisitHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+//	private static final DBConnection connection = new MongoDBConnection();
+	private static final DBConnection connection = new MySQLDBConnection();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,7 +43,6 @@ public class VisitHistory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-            DBConnection connection = new MySQLDBConnection();
 			JSONArray array = null;
 	
 			if (request.getParameterMap().containsKey("user_id")) {
@@ -62,7 +64,6 @@ public class VisitHistory extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	private static final DBConnection connection = new MySQLDBConnection();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			JSONObject input = RpcParser.parseInput(request);
