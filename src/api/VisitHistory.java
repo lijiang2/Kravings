@@ -25,8 +25,13 @@ import db.MySQLDBConnection;
 @WebServlet("/history")
 public class VisitHistory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 //	private static final DBConnection connection = new MongoDBConnection();
 	private static final DBConnection connection = new MySQLDBConnection();
+=======
+	private static final DBConnection connection = new MongoDBConnection();
+//	private static final DBConnection connection = new MySQLDBConnection();
+>>>>>>> a09b95323cc2e06a374808974f631854a7334f2a
        
     /**
      * @see HttpServlet#HttpServlet()

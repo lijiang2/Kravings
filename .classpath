@@ -9,6 +9,9 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+=======
+>>>>>>> a09b95323cc2e06a374808974f631854a7334f2a
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
